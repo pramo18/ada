@@ -1,0 +1,95 @@
+EUCLID
+#include<stdio.h>
+void main()
+{
+  int n,r,m;
+  printf("enter m & n");
+  scanf("%d%d",&m,&n);
+  while(n!=0)
+   {  
+      r=m%n;
+      m=n;
+      n=r;
+    }
+  printf("gcd is %d",m);
+ }
+ 
+ repetetive subtraction
+ 
+ #include<stdio.h>
+void main()
+{
+  int n,m;
+  printf("enter m & n");
+  scanf("%d%d",&m,&n);
+  while(m!=n)
+    {
+       if(m>n)
+       m=m-n;
+      else
+       n=n-m; 
+         }
+    printf("gcd is %d",m);
+}
+consecutive integer
+#include<stdio.h>
+void main()
+{
+  int n,small,m,x;
+  printf("enter m & n");
+  scanf("%d%d",&m,&n);
+  x=gcd(m,n);
+  printf("gcd is %d",x);
+}
+int gcd(int m, int n)
+{  int small=min(m,n);
+   { while(small!=0)
+     
+       if(m%small==0&&n%small==0)
+        return small;
+      else
+       small=small-1;
+   }
+
+}
+ int min(int a,int b)
+{ 
+  if(a>b)
+  return b;
+  else
+  return a;
+}
+ middle school
+ #include<stdio.h>
+void main()
+{
+  int n,small,m,x;
+  printf("enter m & n");
+  scanf("%d%d",&m,&n);
+  x=gcd(m,n);
+  printf("gcd is %d",x);
+}
+int gcd(int m, int n)
+{
+   int c,ans=1;
+   c=m>n?m:n;
+  for(int i=2;i<=c;i++)
+ {
+   int a=0,b=0;
+   if(m%i==0)
+   {
+     m=m/i;
+     b=1;
+   }
+if(n%i==0)
+   {
+     n=n/i;
+     a=1;
+   }
+if(a==1&&b==1)
+  ans=ans*i;
+if(m==0||n==0)
+i=i-1;
+}
+return ans;
+}
