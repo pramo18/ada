@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<time.h>
+
+int bs(int first,int last,int k,int a[100])
+{ 
+  
+  int mid=(first+last)/2;
+  while(first<last)
+   {
+     if(a[mid]==k)
+      { 
+        return 1;
+       
+       
+        
+       }
+     else if(a[mid]>k)
+      {
+          return bs(first,mid-1,k,a);
+       }
+     else
+       {  
+         return bs(mid+1,last,k,a);
+        }
+
+    }
+
+
+}
+
+
+
+int main()
+{ 
+
+  clock_t start,end;
+  int i,a[100],n,k;
+  scanf("%d",&n);
+  for(i=0;i<n;i++)
+   {
+     scanf("%d",&a[i]);
+   }
+scanf("%d",&k);
+   start=clock();
+ int x=bs(0,n-1,k,a);
+  end=clock();
+if(x==1)
+printf(" key  found");
+else
+printf(" key not found");
+double total_time=((end-start)/CLOCKS_PER_SEC);
+printf("time=%f",total_time);
+return 0;
+}
