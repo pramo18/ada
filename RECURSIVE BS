@@ -33,7 +33,7 @@ int bs(int first,int last,int k,int a[100])
 int main()
 { 
 
-  clock_t start,end;
+  
   int i,a[100],n,k;
   scanf("%d",&n);
   for(i=0;i<n;i++)
@@ -41,14 +41,14 @@ int main()
      scanf("%d",&a[i]);
    }
 scanf("%d",&k);
-   start=clock();
+   clock_t start=clock();
  int x=bs(0,n-1,k,a);
-  end=clock();
+  clock_t end=clock();
 if(x==1)
 printf(" key  found");
 else
 printf(" key not found");
-double total_time=((end-start)/CLOCKS_PER_SEC);
+double total_time=(double)(end-start)/CLOCKS_PER_SEC;
 printf("time=%f",total_time);
 return 0;
 }
