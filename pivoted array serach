@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<time.h>
+int search(int a[],int low,int high,int key)
+{   int mid;
+    if(low>high)
+    return -1;
+    mid=(low+high)/2;
+    if(a[mid]==key)
+    return mid;
+    if(a[0]<=a[mid])
+    {
+    if(a[0]<=key&&key<=a[mid])
+    return search(a,0,mid-1,key);
+    else
+    return search(a,mid+1,high,key);
+    }
+    else if(a[0]>=a[mid])
+    {
+        if(key>=a[mid]&&key<=a[high])
+        return search(a,mid+1,high,key);
+        else
+        return search(a,0,mid-1,key);
+    }
+    else
+    return 1;
+}    
+int main()
+{
+    int n,a[100],i,key;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    scanf("%d",&key);
+    clock_t start=clock();
+    int x=search(a,0,n-1,key);
+    clock_t end=clock();
+    if(x==1)
+    printf("not sorted\n");
+    else if(x==-1)
+    printf("key not found\n");
+    else
+    printf("key found at %d\n",x+1);
+    double time=(double)(end-start)/CLOCKS_PER_SEC;
+    printf("%f",time);
+    
+    
+return 0;
+}
