@@ -1,58 +1,59 @@
-#include<iostream>
+#include<stdio.h> 
 #include<time.h>
-using namespace  std;
-
-int pivot(int a[],int low,int high)
-{
-    int i=low+1,j=high;
-    int p=a[low],temp;
-    while(1)
-    {
-        while(i<=high && a[i]<=p){i++;}
-        while(j>=low && a[j]>p){j--;}
-        if(i<j)
-        {
-            temp=a[i];
-            a[i]=a[j];
-            a[j]=temp;
-        }
-        else
-        {
-            a[low]=a[j];
-            a[j]=p;
-            return j;
-        }
-    }
-}
-
-void quick(int a[],int low,int high)
-{
-    int p;
-    if(low<high)
-    {
-        p=pivot(a,low,high);
-        quick(a,low,p-1);
-        quick(a,p+1,high);
-        
-    }
-   
-}
-
+void swap(int* a, int* b) 
+{ 
+    int t = *a; 
+    *a = *b; 
+    *b = t; 
+} 
+int partition (int arr[], int low, int high) 
+{ 
+    int pivot = arr[high];   
+    int i = (low - 1);  
+  
+    for (int j = low; j <= high- 1; j++) 
+    { 
+        if (arr[j] < pivot) 
+        { 
+            i++;   
+            swap(&arr[i], &arr[j]); 
+        } 
+    } 
+    swap(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+void quickSort(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+        int pi = partition(arr, low, high); 
+        quickSort(arr, low, pi - 1); 
+        quickSort(arr, pi + 1, high); 
+    } 
+} 
+void printArray(int arr[], int size) 
+{ 
+    int i; 
+    for (i=0; i < size; i++) 
+        printf("%d ", arr[i]); 
+    printf("\n"); 
+} 
 int main() 
 { 
-   clock_t start,end;
-   int a[20],n,i;
-   cout<<"Enter size\n";
-   cin>>n;
-   cout<<"Enter array elements\n";
-   for(i=0;i<n;i++)
-    cin>>a[i];
-   start=clock();
-   quick(a,0,n-1); 
-   end=clock();
-   cout<<"\nSorted array is \n"; 
-   for(i=0;i<n;i++)
-     cout<<a[i]<<" ";
-   cout<<"\nTime taken ="<<(double)(end-start)/CLOCKS_PER_SEC;
+    int arr[10],size,i;
+    clock_t timereq;
+    float cpu_time;
+   printf("Enter size\n");
+   scanf("%d",&size);
+   printf("Enter array elements\n");
+   for(i=0;i<size;i++)
+   scanf("%d",&arr[i]);
+   timereq= clock();
+    quickSort(arr, 0, size-1); 
+    timereq=clock()-timereq;
+    cpu_time=((float)(timereq))/CLK_TCK;
+    printf("Sorted array: "); 
+    printArray(arr, size); 
+    printf("Time taken in seconds : %f\n",cpu_time);
     return 0; 
-}
+} 
