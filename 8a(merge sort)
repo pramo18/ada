@@ -1,68 +1,84 @@
-#include<iostream>
-#include<time.h>
-using namespace  std;
 
-void combine(int a[],int low,int mid,int high)
-{
-   int i=low,k=low,j=mid+1,c[20];
-   while(i<=mid && j<=high)
-   {
-       if(a[i]<a[j])
-       {
-           c[k++]=a[i++];
-       }
-       else
-       {
-           c[k++]=a[j++];
-       }
-   }
-   if(i>mid)
-   {
-       while(j<=high)
-       {
-           c[k++]=a[j++];
-       }
-   }
-   if(j>high)
-   {
-       while(i<=mid)
-       {
-           c[k++]=a[i++];
-       }
-   }
-   for(int i=low;i<=high;i++)
-    a[i]=c[i];
-   
+#include<stdio.h>
+void merge(int arr[], int l, int m, int r) 
+{ 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 =  r - m; 
+    int L[n1], R[n2]; 
+  
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1+ j]; 
 
-}
-
-void split(int a[],int low,int high)
-{
-    if(low<high)
-    {
-       int mid=(low+high)/2;
-        split(a,low,mid);
-        split(a,mid+1,high);
-        combine(a,low,mid,high);
-    }
-   
-}
+    i = 0; 
+    j = 0; 
+    k = l; 
+    while (i < n1 && j < n2) 
+    { 
+        if (L[i] <= R[j]) 
+        { 
+            arr[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            arr[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+  
+    while (i < n1) 
+    { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+  
+    while (j < n2) 
+    { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+  
+void mergeSort(int arr[], int l, int r) 
+{ 
+    if (l < r) 
+    { 
+         int m = l+(r-l)/2;
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m+1, r); 
+  
+        merge(arr, l, m, r); 
+    } 
+} 
+  
+void printArray(int A[], int size) 
+{ 
+    int i; 
+    for (i=0; i < size; i++) 
+        printf("%d ", A[i]); 
+    printf("\n"); 
+} 
+  
 
 int main() 
 { 
-   clock_t start,end;
-   int a[20],n,i;
-   cout<<"Enter size\n";
-   cin>>n;
-   cout<<"Enter array elements\n";
-   for(i=0;i<n;i++)
-    cin>>a[i];
-   start=clock();
-   split(a,0,n-1); 
-   end=clock();
-   cout<<"\nSorted array is \n"; 
-   for(i=0;i<n;i++)
-     cout<<a[i]<<" ";
-   cout<<"\nTime taken ="<<(double)(end-start)/CLOCKS_PER_SEC;
+    int arr[10],size,i;
+   printf("Enter size\n");
+   scanf("%d",&size);
+   printf("Enter array elements\n");
+   for(i=0;i<size;i++)
+   scanf("%d",&arr[i]);
+   printf("Given array is \n"); 
+    printArray(arr, size); 
+  
+    mergeSort(arr, 0, size - 1); 
+    printf("\nSorted array is \n"); 
+    printArray(arr, size); 
     return 0; 
-}
+} 
